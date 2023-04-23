@@ -1,0 +1,1 @@
+Jogador{id=100, role='mago', pontuacaoHabilidade=4000}
