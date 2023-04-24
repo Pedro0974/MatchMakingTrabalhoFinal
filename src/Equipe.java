@@ -32,7 +32,7 @@ public class Equipe {
         StringBuilder sb = new StringBuilder();
         sb.append("Equipe:\n");
         for (Player jogador : this.jogadores) {
-            sb.append(jogador.toString() + "\n");
+            sb.append(String.format("ID: %d | Nome: %s | Habilidade: %d\n", jogador.getId(), jogador.getRole(), jogador.getPontuacaoHabilidade()));
         }
         return sb.toString();
     }

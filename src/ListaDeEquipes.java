@@ -10,49 +10,45 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ListaDeEquipes {
-    private static ArrayList<Player> jogadores;
+	private static ArrayList<Player> jogadores = new ArrayList<>();
 
-    public ListaDeEquipes() {
-        jogadores = new ArrayList<>();
-    }
+	public static void lerJogadores() {
+	    try {
+	        File file = new File("jogadores.txt");
+	        Scanner scanner = new Scanner(file);
+	        while (scanner.hasNextLine()) {
+	            String linha = scanner.nextLine();
+	            String[] campos = linha.split(",");
+	            if (campos.length >= 3) {
+	                String idStr = campos[0].replace("Jogador{id=", "").trim();
+	                StringBuilder numeros = new StringBuilder();
+	                for (char c : idStr.toCharArray()) {
+	                    if (Character.isDigit(c)) {
+	                        numeros.append(c);
+	                    }
+	                }
+	                int id = Integer.parseInt(numeros.toString());
 
-    public static void lerJogadores() {
-        try {
-            File file = new File("jogadores.txt");
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String linha = scanner.nextLine();
-                String[] campos = linha.split(",");
-                if (campos.length >= 3) {
-                    String idStr = campos[0].replace("Jogador{id=", "").trim();
-                    StringBuilder numeros = new StringBuilder();
-                    for (char c : idStr.toCharArray()) {
-                        if (Character.isDigit(c)) {
-                            numeros.append(c);
-                        }
-                    }
-                    int id = Integer.parseInt(numeros.toString());
-                    
-                    String role = campos[1];
-                    
-                    String habilidadeStr = campos[2].replace("pontuacaoHabilidade=", "").trim();
-                    numeros = new StringBuilder();
-                    for (char c : habilidadeStr.toCharArray()) {
-                        if (Character.isDigit(c)) {
-                            numeros.append(c);
-                        }
-                    }
-                    int habilidade = Integer.parseInt(numeros.toString());
-                    
-                    Player jogador = new Player(id, role, habilidade);
-                    jogadores.add(jogador);
-                }
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Arquivo jogadores.txt não encontrado.");
-        }
-    }
+	                String role = campos[1];
+
+	                String habilidadeStr = campos[2].replace("pontuacaoHabilidade=", "").trim();
+	                numeros = new StringBuilder();
+	                for (char c : habilidadeStr.toCharArray()) {
+	                    if (Character.isDigit(c)) {
+	                        numeros.append(c);
+	                    }
+	                }
+	                int habilidade = Integer.parseInt(numeros.toString());
+
+	                Player jogador = new Player(id, role, habilidade);
+	                jogadores.add(jogador);
+	            }
+	        }
+	        scanner.close();
+	    } catch (FileNotFoundException e) {
+	        System.out.println("Arquivo jogadores.txt não encontrado.");
+	    }
+	}
     
     public static ArrayList<Equipe> separarEquipes() {
         // ordena a lista de jogadores por habilidade
@@ -103,10 +99,7 @@ public class ListaDeEquipes {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("equipes.txt"));
             for (Equipe equipe : equipes) {
-                writer.write("Equipe " + (equipes.indexOf(equipe) + 1) + ":\n");
-                for (Player jogador : equipe.getJogadores()) {
-                    writer.write(jogador.toString() + "\n");
-                }
+                writer.write(equipe.toString());
                 writer.write("Total de habilidade da equipe: " + equipe.getTotalHabilidade() + "\n\n");
             }
             writer.close();

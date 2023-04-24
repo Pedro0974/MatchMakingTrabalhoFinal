@@ -42,17 +42,17 @@ public class Main {
 				ListaDeEquipes.lerJogadores();
 
 				// Chama o método para spearer as equipes
-				ArrayList<Equipe> equipes1 = ListaDeEquipes.separarEquipes();
+				ArrayList<Equipe> listaEquipes = ListaDeEquipes.separarEquipes();
 
 				// Verifica se foi possível separar as equipes
-				if (equipes1 == null) {
+				if (listaEquipes == null) {
 					System.out.println("Não foi possível criar uma partida com as equipes disponíveis.");
 				} else {
 					// Salva as equipes no arquivo equipes.txt
-					ListaDeEquipes.salvarListaDeEquipes(equipes1);
+					ListaDeEquipes.salvarListaDeEquipes(listaEquipes);
 
 					// Cria a partida
-					Matchmaking matchmaking = new Matchmaking(listaDeJogadores, equipes1);
+					Matchmaking matchmaking = new Matchmaking(listaDeJogadores, listaEquipes);
 					Partida partida = matchmaking.montarPartida();
 					if (partida != null) {
 						partidas.add(partida);
