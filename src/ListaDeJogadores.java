@@ -46,7 +46,5 @@ public class ListaDeJogadores {
                                     jogador.getId(), jogador.getRole(), jogador.getPontuacaoHabilidade());
         }
         return result;
-    }
-    
-    
+    } 
 }
