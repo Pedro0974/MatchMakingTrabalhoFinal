@@ -36,6 +36,4 @@ public class Equipe {
         }
         return sb.toString();
     }
-
-	
 }
